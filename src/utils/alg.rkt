@@ -85,8 +85,3 @@
             (listify-aux (cons (car expr) stack) (cdr expr)))))
   (listify-aux '() expr))
 
-
-
-
-    
-
