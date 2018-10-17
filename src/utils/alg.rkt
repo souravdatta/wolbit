@@ -1,6 +1,5 @@
 #lang racket
 
-
 (define operators '((+ . 1) (- . 1) (* . 2) (/ . 2)))
 
 (define (operator? x)
@@ -67,3 +66,20 @@
 (define (infix->postfix expr-list)
   (inner-i->p '() expr-list '()))
 
+(define (listify expr)
+  (define (listify-aux stack expr)
+    (if (empty? expr)
+        (car stack)
+        (if (operator? (car expr))
+            (if (>= (length stack) 2)
+                (let ([e1 (first stack)]
+                      [e2 (second stack)]
+                      [new-stack (cddr stack)])
+                  (listify-aux (cons (list (car expr)
+                                           e2
+                                           e1)
+                                     new-stack)
+                               (cdr expr)))
+                (error "Stack empty!"))
+            (listify-aux (cons (car expr) stack) (cdr expr)))))
+  (listify-aux '() expr))
