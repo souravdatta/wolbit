@@ -1,6 +1,7 @@
 #lang racket
 
-(define operators '((+ . 1) (- . 1) (* . 2) (/ . 2)))
+
+(define operators '((+ . 1) (- . 1) (* . 2) (/ . 2) (:= . 3)))
 
 (define (operator? x)
   (ormap (λ (e) (eq? (car e) x)) operators))
@@ -83,3 +84,9 @@
                 (error "Stack empty!"))
             (listify-aux (cons (car expr) stack) (cdr expr)))))
   (listify-aux '() expr))
+
+
+
+
+    
+
